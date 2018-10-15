@@ -1,0 +1,82 @@
+2018 10 15
+
+#Spring boot
+
+##Spring Boot 프로젝트 리눅스 서버에 올리는 작업
+
+기존의 Spring MVC 프로젝트 환경
+- java 1.9
+- Apache
+- Tomcat
+- MSSQL
+- CentOS Linux release 7.4.1708
+
+리뉴얼 Spring Boot 프로젝트 환경
+- java 1.8
+- CentOS Linux release 7.4.1708
+
+-> Spring Boot에 내장 톰캣이 있기 때문에 따로 세팅해줄 필요 없음
+리눅스 서버에 올릴 때도 exploded 한 압축 파일(jar, war)를 서버에 올리고
+루트 맞춰준 뒤 java 설정 후 build 하면 끝.
+
+[.bash_profile]
+JAVA_HOME=/usr/local/jdk1.8.0_181/jre/
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin:$JAVA_HOME/bin
+
+
+[build script]
+/usr/local/jdk1.8.0_181/jre/bin/java
+-Xms1024m
+-Xmx1024m
+-server
+-jar
+kakaogames_pcbang_crm2.war
+--spring.config.location=classpath:/application.properties
+
+참고한 페이지 https://blog.leocat.kr/notes/2017/10/12/spring-boot-packaging-executable-jar-war
+
+
+프로젝트 시작, 중지 스크립트를 따로 생성
+
+[start.sh]
+#!/bin/bash
+
+JAVA_HOME=/usr/local/jdk1.8.0_181/jre/
+
+APPNAME=kakaogames_pcbang_crm2
+JAR=$APPNAME.war
+PROFILE=dev
+LANG=ko
+
+SCRIPT=$(readlink -f $0)
+APP_HOME=$(dirname $(dirname $SCRIPT))
+
+cd "$APP_HOME/lib"
+echo
+
+CMD="$JAVA_HOME/bin/java -Xms1024m -Xmx1024m -server -jar $JAR --spring.config.location=classpath:/application.properties"
+printf ">> Start $APPNAME...\n$CMD\n"
+eval "$CMD  > /dev/null 2> /dev/null < /dev/null &"
+
+echo ">> Done"
+
+exit 0
+
+
+[stop.sh]
+#!/bin/bash
+
+APPNAME=kakaogames_pcbang_crm2
+JAR=$APPNAME.war
+
+SCRIPT=$(readlink -f $0)
+APP_HOME=$(dirname $(dirname $SCRIPT))
+
+CMD="pkill -f '$JAR'"
+printf ">> Stop $APPNAME...\n$CMD\n"
+eval $CMD
+echo ">> Done"
+
+exit 0
+
