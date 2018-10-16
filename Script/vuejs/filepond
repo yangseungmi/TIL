@@ -1,0 +1,95 @@
+2018 10 16
+
+#filepond
+
+##vue.js 에서 파일 업로드 방식 중 하나인 filepond 적용
+
+Demo
+https://github.com/pqina/vue-filepond
+
+
+항상
+<div>
+ <input type="file" value="파일"/>
+</div>
+이런 식으로 파일 업로드를 하곤 했는데
+
+vuejs를 사용하면서 filepond로 파일 업로드를 사용 해 보았다
+
+자주 사용하는 ajax는 형식이
+
+$.ajax({
+    url : "/api/file/upload.daum",
+    type : 'post',
+    data : {xmlData : parserXML()},
+    dataType : 'text',
+    success : function (response) {
+        alert('Upload success');
+    },error : function (e) {
+        alert('Fail ');
+    }
+})
+이렇게 url, type, data 등을 사용해서 데이터를 전송하지만
+
+vuejs에서는
+ <co-fileupload
+    title="TENTH2 파일 업로드"
+    id="i_file_tenth2"
+    name="i_file_upload"
+    accept="image/*"
+    label="Drag & Drop 이미지 <span class='filepond--label-action'>선택</span>"
+    previewheight="170"
+>
+</co-fileupload>
+
+이런식으로 태그를 직접 정의해서 만들어주고
+kgFilepond.setOption({
+      // input DOM element.
+      el: '#i_file_tenth2',
+      // 서버 업로드 url.
+      url: '/api/upload',
+      // 서버 업로드 timeout.
+      timeout: 3000,
+      // 서버 업로드 응답 callback.
+      onload: function (ret) {
+          console.log(ret);
+      }
+  });
+ 스크립트 안에 데이터를 맞춰준다
+ _kgFilepond.prototype = {
+        setOption: function (option) {
+            if (!global.FilePond) {
+                return;
+            }
+
+            this.option.server.url = option.url;
+            this.option.server.process.timeout = option.timeout;
+            this.option.server.process.onload = option.onload;
+
+            FilePond.registerPlugin(global['FilePondPluginFileValidateType']);
+            FilePond.registerPlugin(global['FilePondPluginImagePreview']);
+            FilePond.setOptions(this.option);
+
+            FilePond.create(
+                document.querySelector(option.el),
+                {
+                    instantUpload: 'false',
+                    dropValidation: 'true',
+                    styleLoadIndicatorPosition: 'center bottom',
+                    styleProgressIndicatorPosition: 'right bottom',
+                    styleButtonRemoveItemPosition: 'left bottom',
+                    styleButtonProcessItemPosition: 'right bottom'
+                }
+            );
+        }
+    };
+
+    global.kgFilepond = new _kgFilepond();
+
+filepond prototype을 맞춰주기 위해 옵션 설정과 변수 선언을 해주면 된다
+단, 파일 형식이 이미지만 가능하다.
+
+
+
+
+
