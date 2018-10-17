@@ -1,0 +1,37 @@
+2018 10 17
+
+#Spring boot
+
+##Cross Origin Resource Sharing - CORS Error Report
+
+Spring CORS No 'Access-Control-Allow-Origin' header is present 해결
+
+참고 페이지
+https://stackoverflow.com/questions/35091524/spring-cors-no-access-control-allow-origin-header-is-present
+http://ithub.tistory.com/63
+
+우선 CORS는 
+웹 브라우저에서 Ajax 등을 통해 다른 도메인의 서버에 url(data)를 호출할 경우,
+뷰단 스크립트에서 POST나 PUT 통신으로 다른 도메인의 응답 요청을 할 때 나타나는 보안문제를 말합니다.
+(만약, 내가 만든 웹서비스에서 사용하기 위한 rest api 서버를 다른 도메인에서 접근하여 사용한다면, 보안상 문제가 될 수 있다.)
+
+크로스도메인 이슈 해결방법
+ - 서버측에서 크로스도메인을 허용하여 문제를 해결하는 방식
+ - 클라이언트측에서 크로스도메인을 해결하는 방식 
+  (서버측에서 크로스도메인 설정하여 문제를 해결하는 것이 표준화된 방법 입니다.)
+
+이번에 개발을 하면서 헤더에 직접넣는 방법 말고 
+
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+      registry.addMapping("/api/upload/**")
+              .allowedOrigins("*")
+              .allowedMethods("POST")
+              .allowCredentials(false).maxAge(3600);
+  }
+
+응답을 받는 서버단에 옵션을 따로 추가해 통신하는 방법을 사용해 보았습니다
+
+
+
+
