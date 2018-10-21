@@ -1,0 +1,100 @@
+2018 10 21
+
+#Script
+
+##ajax 1 테이블 데이터 전송
+
+표에 있는 데이터를 수정한 뒤 그 값을 ajax로 통신해 전달할 때
+아래와 같이 parserXML() 함수를 만들어서 사용해보았습니다
+
+
+function parserXML() {
+    var xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+        "<pcbang>\n";
+
+    $("#datatable1 tr").each(function () {
+        var cells = $("td", this);
+        if (cells.length > 0) {
+            xml += "\t<game id='" + cells.eq(0).text() + "'>\n";
+               xml += "\t\t<interval>" + cells.eq(2).children().val() + "</interval>\n";
+               xml += "\t\t<setting>"  + cells.eq(3).children().val() + "</setting>\n";
+            xml += "\t</game >\n";
+       }
+    });
+    xml += "</pcbang>\n";
+    return xml;
+};
+
+이때 parserXML()의 return 값은 아래와 같이 xml 형태의 텍스트가 됩니다
+
+<?xml version=\"1.0\" encoding=\"utf-8\"?>
+<pcbang>
+  <game id="13">
+    <interval>3</interval>
+    <setting>on</setting>
+  </game>
+  <game id="16">
+    <interval>10</interval>
+    <setting>on</setting>
+  </game>
+  <game id="26">
+    <interval>1</interval>
+    <setting>on</setting>
+  </game>
+  <game id="31">
+    <interval>1</interval>
+    <setting>on</setting>
+  </game>
+</pcbang>
+
+다음으로
+$(".xml_upload").click(function () {
+    $.ajax({
+        url : "/api/tenth/upload.daum",
+        type : 'post',
+        data : {xmlData : parserXML()},
+        dataType : 'text',
+        success : function (response) {
+            alert('success');
+        },error : function (e) {
+            alert('Fail '+e);
+        }
+    })
+});
+이 스크립트는 클래스 이름이 xml_upload 라는 element를 클릭했을 때 동작하는 기술로
+'/api/tenth/upload.daum'라는 경로로 data를 넘겨준다는 뜻이다.
+
+xmlData로 데이터가 전송되면 해당 url에서는 파라미터로 받아 아래와 같이 사용한다
+
+@RequestMapping(value="/api/file/upload.daum", method= RequestMethod.POST, produces="text/plain")
+public ModelAndView uploadXML(String xmlData)
+        throws UnknownHostException, FileNotFoundException {
+
+    //1. 페이지 내용을 XML로 만든다 - jQuery
+    // 2. 업로드
+    String hostname = request.getServerName();
+    String result = "";
+    File file = null;
+    //file 따로 지정
+
+    try{
+        // 파일 객체 생성
+        // true 지정시 파일의 기존 내용에 이어서 작성
+        FileWriter fw = new FileWriter(file, false);
+        // 3.파일안에 문자열 쓰기
+        fw.write(xmlData);
+        fw.flush();
+        // 객체 닫기
+        fw.close();
+        result = "success";
+    }catch(Exception e){
+        e.printStackTrace();
+        result = e.toString();
+    }
+
+    ModelAndView mav = new ModelAndView(jsonView);
+    mav.addObject("ret",result);
+    return mav;
+}
+
+
