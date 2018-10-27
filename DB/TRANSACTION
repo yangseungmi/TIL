@@ -1,0 +1,73 @@
+2018 10 27
+
+#DB
+
+##TRANSACTION
+
+간단하게 InnoDB가 실행하고 있는 트랜잭션들의 정보들을 이해하는 방법을 살펴보자.
+InnoDB Plug-in 버전에서는 트랜잭션에 대한 정보와 Lock 그리고 Lock 대기에 관련된 정보들을 INFORMATION_SCHEMA에 
+정의된 테이블들(INNODB_TRX, INNODB_LOCKS, INNODB_LOCK_WAITS)을 조회함으로써 쉽게 파악할 수 있다. 
+(이 부분은 InnoDB Plug-in의 엄청난 발전으로 느껴진다)
+하지만, Built-in 버전의 InnoDB에서는 이러한 딕셔너리를 제공하지 않는다. 유일한 방법은 “SHOW ENGINE INNODB STATUS” 명령문밖에 해결책이 없다.
+
+간단히 아래와 같은 테이블을 만들고, 두 개의 세션에서 동일 UPDATE 쿼리 문장을 실행한 상태에서 트랜잭션과 
+Lock의 상태를 SHOW ENGINE INNODB STATUS로 확인해 보도록 하겠다.
+
+-- //-----------------------------------------------------------------------------------------
+-- // Table specification
+-- //-----------------------------------------------------------------------------------------
+CREATE TABLE article (
+  article_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  article_category tinyint(3) unsigned NOT NULL DEFAULT '0',
+  article_title varchar(200) NOT NULL DEFAULT '',
+  article_type enum('sticky','general') NOT NULL DEFAULT 'general',
+  PRIMARY KEY (article_id),
+  KEY ix_category_type_id_user (article_category,article_type)
+) ENGINE=InnoDB;
+
+
+-- //-----------------------------------------------------------------------------------------
+-- // Session1
+-- //-----------------------------------------------------------------------------------------
+begin;
+update article set article_title='xx' where article_category=112 and article_type='general';
+
+
+-- //-----------------------------------------------------------------------------------------
+-- // Session2
+-- //-----------------------------------------------------------------------------------------
+begin;
+update article set article_title='xx' where article_category=112 and article_type='general';
+
+
+-- //-----------------------------------------------------------------------------------------
+-- // SHOW ENGINE INNODB STATUS 명령의 결과
+-- //-----------------------------------------------------------------------------------------
+mysql> show engine innodb status;
+........
+........
+01  ------------
+02  TRANSACTIONS
+03  ------------
+04  Trx id counter 0 1809461
+05  Purge done for trx's n:o < 0 1809457 undo n:o < 0 0
+06  History list length 21
+07  LIST OF TRANSACTIONS FOR EACH SESSION:
+08 
+09  ---TRANSACTION 0 0, not started, process no 5975, OS thread id 1099274560
+10  MySQL thread id 6, query id 309 localhost root
+11  show engine innodb status
+12 
+13  ---TRANSACTION 0 1809460, ACTIVE 4 sec, process no 5975, OS thread id 1281038656 starting index read
+14  mysql tables in use 1, locked 1
+15  LOCK WAIT 2 lock struct(s), heap size 368, 1 row lock(s)
+16  MySQL thread id 7, query id 308 localhost root Updating
+17  update article set article_title='xx' where article_category=112 and article_type='general'
+18  ------- TRX HAS BEEN WAITING 4 SEC FOR THIS LOCK TO BE GRANTED:
+19  RECORD LOCKS space id 88 page no 4 n bits 88 index ix_category_type_id_user of table test.article trx id 0 1809460 lock_mode X locks rec but not gap waiting
+20  Record lock, heap no 10 PHYSICAL RECORD: n_fields 4; compact format; info bits 0
+21   0: len 1; hex 70; asc p;; 1: len 1; hex 02; asc  ;; 2: len 4; hex 00000009; asc     ;; 3: len 4; hex 00000000; asc     ;;
+22 
+23  ---TRANSACTION 0 1809458, ACTIVE 17251 sec, process no 5975, OS thread id 1099008320
+24  3 lock struct(s), heap size 368, 2 row lock(s), undo log entries 1
+25  MySQL thread id 4, query id 301 localhost root
