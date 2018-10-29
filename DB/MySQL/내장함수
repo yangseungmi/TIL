@@ -1,0 +1,78 @@
+2018 10 29
+
+##MySQL
+
+#내장함수
+
+1. IFNULL, ISNULL
+mysql > SELECT IFNULL(NULL,1);  두 개의 인자를 전달(NULL인지 비교하는 칼럼이나표현식, NULL일경우 대체할 값이나 칼럼)
+1
+mysql > SELECT ISNULL(0); 인자가 NULL이면 TRUE(1), FALSE(0) 반환
+0
+
+2. 현재 시각 조회(NOW, SYSDATE)
+NOW()와 SYSDATE()는 현재시간을 반환하지만 차이가 있다
+NOW()는 하나의 SQL에서 모두 같은 값을 가지지만
+SYSDATE()는 하나의 SQL 내에서도 호출되는 시점에 따라 결과 값이 달라진다
+때문에 슬레이브에서 안정적으로 복제되지 못하고, SYSDATE()함수와 비교되는 컬럼은 인덱스를 효율적으로 사용하지 못한다
+ex ) from_date > NOW();
+     from_date > SYSDATE();
+에서 인덱스 사용 차이가 있다. 
+
+3. 날짜와 시간 포맷(DTE_FORMAT, STR_TO_DATE)
+%Y  4자리 년도
+%m  2자리 숫자 표시의 월(00~12)
+%d  2자리 숫자 표시의 일자(00~31)
+%H  2자리 숫자 표시의 시(00~23)
+%i  2자리 숫자 표시의 분(00~59)
+%s  2자리 숫자 표시의 초(00~59)
+
+mysql > SELECT DATE_FORMAT(NOW(), '%Y-%m-%d% %H:%i:%s') as current_dttm;
+'2018-10-29 23:04:33'
+
+4. 날짜와 시간의 연산(DATE_ADD, DATE_SUB)
+mysql > SELECT DATE_ADD(NOW(), INTERVAL 1 DAY) as tomorrow;
+2018-10-30 23:07:11
+
+5. 타임 스탬프 연산(UNIX_TIMESTAMP, FROM_UNIXTIME)
+UNIX_TIMESTAMP() 함수는 '1970-01-01 00:00:00'로부터 경과된 초의 수를 반환하는 함수다.
+다른 운영체제나 프로그래밍 언어에서도 같은 방식으로 타임스탬프를 산출하는 경우에 상호 호환해서 사용할 수 있다
+mysql > SELECT UNIX_TIMESTAMP('2018-10-29 11:12:19');
+1111186000
+()인자가 없으면 현재날짜와 시간의 타임스탬프 값을 반환한다
+
+6. 문자열 처리(RPAD,LPAD / RTRIM, LTRIM, TRIM)
+RPAD와 LPAD는 문자열에 문자를 덧붙여서 지정된 길이의 문자열로 만드는 함수다
+둘은 함수 3개의 인자가 필요하다
+mysql > SELECT RPAD('Cloee' ,10, '-');
+Cloee-----
+mysql > SELECT LTRIM('   Cloee');
+Cloee
+
+7. 문자열 결합(CONCAT)
+mysql > SELECT CONCAT('B','A')
+BA
+
+8. 값의 비교와 대체(CASE WHEN ..THEN .. END)
+mysql > 
+CASE gender WHEN 'M' THEN 'MAN'
+            WHEN 'F' THEN 'WOMAN'
+            ELSE 'Unkown'
+CASE WHEN hire_date<'1993-11-03' THEN 'Old'
+     ELSE 'New'
+     
+9. 타입의 변환(CAST, CONVERT)
+mysql > SELECT CAST('123' AS SIGEND INTEGER) AS converted_integer;
+        SELECT CONVERT('2018-10-29',DATE) AS converted_date;
+CAST는 첫번째 부분에 타입을 변환할 값이나 표현식을, 두번쨰 부분에는 변환하고자 하는 데이터 타입을 명시하면된다 첫번째와 두번째 부분을 구분하기 위해 AS를 사용한다
+CONVERT는 첫번째 부분에는 변환하고자 하는 값이나 표현식, 그리고 두 번째 부분에는 문자집합의 이름을 지정하면 된다
+
+10. 처리 대기(SLEEP)
+SLEEP() 인수에 초단위로 받으며, 레코드 건수만큼 SLEEP()을 호출한다
+SQL의 개발이나 디버깅 용도로 잠깐 대기한다거나 일부러 쿼리의 실행을 오랜 시간 동안 유지한다거나 할 떄 상당히 유용하다
+
+11. IP 주소 변환(INET_ATON, INET_NTOA)
+mysql > INSERT INTO accesslog VALUES(NOW(), INET_ATON('127.0.0.130'));
+        SELECT * from accesslog where ip_addr BETWEEN INET_ATON('127.0.0.1') AND INET_ATON('127.0.0.255')
+        
+     
