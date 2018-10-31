@@ -1,0 +1,54 @@
+2018 10 31
+
+##DB
+
+#MySQL Group By
+
+MySQL에서 유형별로 갯수를 가져오고 싶은데, 단순히 COUNT 함수로 데이터를 조회하면 전체 갯수만을 가져온다
+이렇게 유형별로 갯수를 알고 싶을 때는 컬럼에 데이터를 그룹화 할 수 있는 GROUP BY를 사용하는 것이다
+
+GROUP BY를 사용할 때는 두가지를 기억해야 한다
+
+1.특정 컬럼을 그룹화 하는 GROUP BY 
+2.특정 컬럼을 그룹화한 결과에 조건을 거는 HAVING
+
+* WHERE랑 HAVING을 헷깔리는 경우가 많은데 WHERE는 그룹화 하기 전이고, HAVING은 그룹화 후에 조건이다
+
+▶사용법
+컬럼 그룹화
+1
+SELECT 컬럼 FROM 테이블 GROUP BY 그룹화할 컬럼;
+
+조건 처리 후에 컬럼 그룹화
+SELECT 컬럼 FROM 테이블 WHERE 조건식 GROUP BY 그룹화할 컬럼;
+
+컬럼 그룹화 후에 조건 처리
+SELECT 컬럼 FROM 테이블 GROUP BY 그룹화할 컬럼 HAVING 조건식;
+
+조건 처리 후에 컬럼 그룹화 후에 조건 처리
+SELECT 컬럼 FROM 테이블 WHERE 조건식 GROUP BY 그룹화할 컬럼 HAVING 조건식;
+
+ORDER BY가 존재하는 경우
+SELECT 컬럼 FROM 테이블 [WHERE 조건식]
+GROUP BY 그룹화할 컬럼 [HAVING 조건식] ORDER BY 컬럼1 [, 컬럼2, 컬럼3 ...]
+
+type 그룹화하여 name 갯수 조회 (컬럼 그룹화)
+쿼리
+SELECT type, COUNT(name) AS cnt FROM hero_collection GROUP BY type;
+
+type 1 초과인, type 그룹화하여 name 갯수 조회 (조건 처리 후 컬럼 그룹화)
+SELECT type, COUNT(name) AS cnt FROM hero_collection WHERE type > 1 GROUP BY type;
+
+
+type 그룹화하여 name 갯수를 가져온 후, 그 중에 갯수가 2개 이상인 데이터 조회 (조건 처리 후에 컬럼 그룹화 후에 조건 처리)
+쿼리
+SELECT type, COUNT(name) AS cnt FROM hero_collection GROUP BY type HAVING cnt >= 2;
+
+type 1 초과인, type 그룹화하여 name 갯수를 가져온 후, 그 중에 갯수가 2개 이상인 데이터 조회 (조건 처리 후에 컬럼 그룹화 후에 조건 처리)
+쿼리
+SELECT type, COUNT(name) AS cnt FROM hero_collection WHERE type > 1 GROUP BY type HAVING cnt >= 2;
+
+type 1 초과인, type 그룹화하여 name 갯수를 가져온 후, 그 중에 갯수가 2개 이상인 데이터를 type 오름차순 정렬로 조회 (오름차순 정렬)
+SELECT type, COUNT(name) AS cnt FROM hero_collection
+WHERE type > 1 GROUP BY type HAVING cnt >= 2 ORDER BY type DESC;
+
