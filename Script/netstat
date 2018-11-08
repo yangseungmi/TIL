@@ -1,0 +1,125 @@
+2018 11 8
+
+#Script
+
+##netstat 명령어 정리
+
+리눅스 명령어 - netstat
+
+* 옵션
+
+  -a : 모든 소켓을 보기. 이 옵션을 안 넣으면 상태가 Established 상태인 것만 나온다. 동일 옵션은 --all
+
+  -c : 현재 실행 명령을 매 초마다 실행. 동일 옵션은 --continuous
+
+    => netstat -anc (해당 명령을 매 초마다 실행.)
+
+    => netstat 10 (-c 옵션이 안 들어가도 해당 숫자만큼 시간이 지난후에 명령어 실행.)
+
+  -e : 확장 정보 추가. User 부분과 Inode 열이 추가된다. 동일 옵션은 --extend
+
+  -g : 멀티캐스트에 대한 그룹별 정보를 보여줌 (IPv4/IPv6). 동일 옵션은 --groups
+
+  -i : 인터페이스별 통계값. -I=(인터페이스명) / --interface=(인터페이스명) 을 하면 해당 인터페이스값만 보기도 가능.
+
+  -l : 대기중인 소켓 리스트만 보여준다. 동일 옵션은 --listening
+
+  -n : 도메인 주소를 읽어들이지 않고 숫자로 출력한다. --numeric-hosts --numeric-ports --numeric-users 명령어가 합쳐진 옵션. 동일 옵션은 --numeric
+
+  --numeric-hosts : 호스트 부분을 IP로 출력.
+
+  --numeric-ports : 포트 부분을 숫자로 출력.
+
+  --numeric-users : 유저 부분을 숫자로 출력(UID).
+
+  -o : 연결 대기 시간 표기. 동일 옵션은 --timers
+
+  -p : PID(프로세서 ID) 와 사용중인 프로그램명이 표시된다. 동일 옵션은 --program
+
+  -r : 라우팅 테이블 보기. 'route' 명령어와 동일. 동일 옵션은 --route
+
+  -s : 프로토콜 요약 정보. 동일 옵션은 --statistics
+
+  -t : TCP 프로토콜 보기. 연결된 것만 나옴. 동일 옵션은 --tcp
+
+  -u : UDP 프로토콜 보기. 동일 옵션은 --udp
+
+  -v : 버전 보기.
+
+  -w : RAW 프로토콜 보기. 동일 옵션은 --raw
+
+  -A : 프로토콜별로 보기. 종류는 inet, unix, ipx, ax25, netrom, ddp 가 있음. 동일 옵션은 --protocol
+
+    => netstat -A inet (TCP 프로토콜 연결 상태만 보기)
+
+    => netstat --protocol=inet (위의 명령어와 동일)
+
+  -M : 마스커레이딩 정보 표시. 동일 옵션은 --masquerade
+
+
+* 출력 라인(inet 관련)
+
+  - Proto : 프로토콜 종류. TCP / UDP / RAW 가 있음.
+
+  - Recv-Q : 해당 프로그램이 현재 받는 바이트 표기.
+
+  - Send-Q : 해당 프로그램이 현재 보내는 바이트 표기.
+
+  - Local Address : 출발지 주소 및 포트. 자신의 주소 및 포트.
+
+  - Foreign Address : 목적지 주소 및 포트.
+
+  - State : 포트의 상태 표기.
+
+    => CLOSED
+
+    => CLOSED_WAIT
+
+    => CLOSING
+
+    => ESTABLISHED : 연결이 완료된 상태.
+
+    => FIN_WAIT1
+
+    => FIN_WAIT2
+
+    => LAST_ACK
+
+    => LISTEN :  대기중인 포트. 포트가 열려 있음.
+
+    => SYN_RECV : 연결 요청을 받은 후에 확인 값을 기다리는 상태.
+
+    => SYN_SENT : 목적지에 연결 요청.
+
+    => TIME_WAIT : 연결이 종료된 후 기다리는 상태. 약 1분 정도이며 -o 옵션으로 확인 가능. 시간이 다 지나면 사라짐.
+
+    => UNKNOWN : 소켓의 상태를 알 수 없음.
+
+
+============================================================================================================
+
+
+* 예제.
+
+1. 인터넷 연결 상태 보기.
+
+[root@sm-linux ~]# netstat -A inet
+
+Active Internet connections (w/o servers)
+
+Proto Recv-Q Send-Q Local Address               Foreign Address             State
+
+tcp        0      0 navi-linux:35212            123.123.123.123:http           ESTABLISHED
+
+tcp        0      0 navi-linux:56976            61-111-58-50.kidc.net:http  ESTABLISHED
+
+tcp        0    314 navi-linux:telnet           231.231.231.231:netcheque     ESTABLISHED
+
+
+2. 통계값 보기 (프로토콜별).
+
+[root@sm-linux ~]# netstat -s
+
+Ip:
+    1141245 total packets received
+    ...
