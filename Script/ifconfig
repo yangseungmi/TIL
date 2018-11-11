@@ -1,0 +1,61 @@
+2018 11 11
+
+#Script
+
+##ifconfig
+
+자주 쓰이는 명령어 ifconfig 공부해보았습니다
+ip 찾을 때만 사용하는 경우가 많은데 각각의 항목에 대해 정리해보았습니다
+[root@sangchul script]# ifconfig
+eth0      Link encap:Ethernet  HWaddr 00:0E:0C:4D:6B:A0
+          inet addr:162.157.11.6  Bcast:162.157.11.255  Mask:255.255.255.0
+          inet6 addr: fe80::20e:cff:fe4d:6ba0/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:2193099470 errors:7800567 dropped:0 overruns:0 frame:7800567
+          TX packets:2465047765 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:3 txqueuelen:1000
+          RX bytes:2836974969 (2.6 GiB)  TX bytes:2451823793 (2.2 GiB)
+          Base address:0xd880 Memory:fcfc0000-fcfe0000
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:324705808 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:324705808 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:80492326 (76.7 MiB)  TX bytes:80492326 (76.7 MiB)
+
+ 
+
+Link encap
+ Ehternet 장치에 사용중인 프로토콜이 Ethernet임을나타낸다.
+Hwaddr
+ 이더넷 카드에 있는 고유 하드웨어 주소로, 48비트로 되어 있다. 보통 MAC(Media Address Control)주소라고도 한다.
+inet addr
+ IP주소를 나타낸다.
+Bcast
+ 브로드 캐스트 주소를 나타낸다.
+Mask
+ 넷마스크(Netmask)값을 나타낸다.
+UP
+ 인터페이스가 활성화되어 있음을 나타낸다.
+BROADCAST
+ 브로드 캐스트를 사용한다.
+RUNNING
+ 동작중임을 뜻한다.
+MULTICAST
+ 멀티 캐스트를 사용한다.
+MTU
+ Maximum Transmission Unit의 약자로 한 번에 전송할 수 있는 최대패킷의 크기를 말한다.
+Metric
+ 라우팅할 때 참조되는 거리로 로컬인 경우 값이 1이 된다.
+RX/TX
+ 받은 패킷/전송한 패킷의 총 개수(packets), 그 중 에러가 발생한패킷의 수는 errors에, 그냥 버린 패킷의 수는 dropped, 손실된패킷의 개수는 overruns에 표시 된다.
+collisions
+ 충돌이 발생한 패킷의 수
+Interrupt
+ Ethernet 카드가 현재 사용중인 IRQ
+Base address
+ Ethernet 카드가 현재 사용중인 주소
+
