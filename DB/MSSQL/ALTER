@@ -1,0 +1,38 @@
+2018 11 13
+
+#MSSQL
+
+##ALTER 이용해서 테이블 컬럼 조작(추가,수정,삭제)
+
+테이블 추가
+CREATE TABLE 테이블명 (
+     컬럼명   데이터형식   IDENTITY(1,1)   NULL허용,
+     컬럼명   데이터형식   NULL허용,
+     컬럼명   데이터형식   NULL허용,
+     컬럼명   데이터형식   NULL허용
+)
+
+테이블 삭제
+DROP TABLE 테이블명
+
+칼럼 변경
+ALTER TABLE 테이블명 ALTER COLUMN 컬럼명 데이터형식 NULL허용
+=>ALTER TABLE DAUMPC_SVC_STATUS ALTER COLUMN RETRY_CNT INT NOT NULL;
+
+새로운 칼럼 추가
+ALTER TABLE 테이블명 ADD 컬럼명 데이터형식 NULL허용
+=> ALTER TABLE DAUMPC_SVC_STATUS ADD RETRY_CNT INT NOT NULL DEFAULT 0;
+
+칼럼 삭제 
+ALTER TABLE 테이블명 DROP COLUMN 컬럼명
+=>ALTER TABLE DAUMPC_SVC_STATUS DROP COLUMN RETRY_CNT;
+
+데이터 입력
+INSERT INTO 테이블명(컬럼명,컬럼명...컬럼명n) VALUES (데이터값,데이터값...데이터값n) 
+
+테이블의 필드 순서 변경
+ALTER TABLE 테이블명 CHANGE COLUMN 변경전 필드명 변경후 필드명 varchar(255) NULL AFTER 기준 필드명; 
+
+
+
+출처: http://foco85.tistory.com/201
