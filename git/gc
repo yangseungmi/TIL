@@ -1,0 +1,43 @@
+2018 11 14
+
+#git
+
+##gc
+
+어떤 프로젝트에서 먼가를 정리한다는건 사실 두.렵.다.
+조심스러워서 gc 명령어를 사용하기 전 찾아보고 테스트 해 본 뒤 사용 중이다.
+
+Git은 때가 되면 자동으로 “auto gc” 명령을 실행한다. 이 명령이 실행되는 경우 대부분은 아무런 일도 일어나지 않는다.
+Loose 개체가 너무 많거나, Packfile 자체가 너무 많으면 Git은 그제야 진짜로 git gc 명령이 일하게 한다. 
+gc 명령은 Garbage를 Collect 하는 명령이다. 
+이 명령은 Loose 개체를 모아서 Packfile에 저장하거나 작은 Packfile을 모아서 하나의 큰 Packfile에 저장한다. 
+아무런 커밋도 가리키지 않는 개체가 있고 오랫동안(대략 몇 달쯤) 아무도 쓰지 않는다면 개체를 삭제한다.
+
+Git이 Garbage를 Collect 할 지 말지 자동으로 판단해서 처리하도록 아래와 같이 gc 명령을 실행할 수 있다.
+
+$ git gc --auto
+이 명령을 실행해도 보통은 아무 일도 일어나지 않는다. 
+Loose 개체가 7천 개가 넘거나 Packfile이 50개가 넘지 않으면 Git은 실제로 gc 작업을 실행하지 않는다. 
+원한다면 gc.auto 나 gc.autopacklimit 설정으로 그 숫자를 조절할 수 있다.
+
+gc 명령이 하는 일 중 하나는 Refs를 파일 하나로 압축하는 일이다. 예를 들어 저장소에 아래와 같은 브랜치와 태그가 있다고 하자.
+
+$ find .git/refs -type f
+.git/refs/heads/experiment
+.git/refs/heads/master
+.git/refs/tags/v1.0
+.git/refs/tags/v1.1
+git gc 를 실행하면 refs 에 있는 파일은 사라진다. 대신 Git은 그 파일을 .git/packed-refs 파일로 압축해서 효율을 높인다.
+
+gc 명령으로 최적화하고 나서 저장소 크기가 얼마나 되는지 확인할 수 있다.
+
+$ git gc
+Counting objects: 17, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (13/13), done.
+Writing objects: 100% (17/17), done.
+Total 17 (delta 1), reused 10 (delta 0)
+
+ 
+ 
+ 
