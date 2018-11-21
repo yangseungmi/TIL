@@ -1,0 +1,29 @@
+2018 11 22
+
+#Script
+
+##jQuery opener
+
+자식창 -> 부모창으로 값 전달하기
+일 하면서 부모창에서 팝업을 띄운 자식창에서 부모창 값을 컨트롤하는 방법 구글링하다가 찾아서 정리 해 보았습니다
+
+자식 팝업 창에서 부모창 컨트롤
+$(opener.document).find("#Form").attr("action","index.do").submit();
+
+자식창 -> 부모창으로 값 전달하기
+
+opener.document.getElementById("id").value="value"; //dom 객체로 제어
+==> 저는 이 방법으로 구현 해 보았습니다
+
+$("#id",opener.document).val("value"); // jQuery 방식 1
+
+$("input[name=imgFile]", parent.document.body).val() // 방식 2
+
+$(opener.document).find("#id").val("value"); //방식 3
+
+opener.location.href="javascript:fun();"; //일반적인 방법
+
+$(opener.location).attr("href","javascript:fun();"); //jQuery 이용
+
+
+출처: http://jp1020.tistory.com/entry/jQuery에서-팝업-부모opener-객체-컨트롤 [메모하는 습관]
