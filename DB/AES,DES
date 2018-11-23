@@ -1,0 +1,26 @@
+2018 11 23
+
+#DB
+
+##MySQL
+-AES_ENCRYPT(str,key_str)
+-AES_DECRYPT(crypt_str,key_str)
+
+현업에서 사용하다보니 AES_ENCRYPT를 사용하면서 UTF8로 한번더 CONVERT를 해줘야하더라구요
+->CONVERT(AES_DECRYPT(crypt_str, key_str) USING UTF8) as mykey
+
+##MSSQL
+공부하면서 MSSQL의 암호화,복호화도 정리해보았습니다
+DecryptByKey ( { 'ciphertext' | @ciphertext }   
+    [ , add_authenticator, { authenticator | @authenticator } ] )  
+->CONVERT(nvarchar, DecryptByKey(EncryptedNationalID))   
+
+EncryptByKey ( key_GUID , { 'cleartext' | @cleartext }  
+    [, { add_authenticator | @add_authenticator }  
+     , { authenticator | @authenticator } ] )  
+-> SET CardNumber_Encrypted = EncryptByKey(Key_GUID('CreditCards_Key11'),   
+    CardNumber, 1, CONVERT( varbinary, CreditCardID) );  
+    
+참고 페이지 
+mysql https://dev.mysql.com/doc/refman/5.5/en/encryption-functions.html#function_aes-decrypt
+mssql https://docs.microsoft.com/en-us/sql/t-sql/functions/decryptbykey-transact-sql?view=sql-server-2017
