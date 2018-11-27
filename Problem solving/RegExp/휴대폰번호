@@ -1,0 +1,19 @@
+2018 11 17
+
+#Problem Solving
+
+##정규식
+
+숫자를 휴대폰번호 형식으로 바꾸기
+대학생때 하다 정규식을 놔버려 ... 정리하면서 문제 풀어보았습니다
+
+input  '01056273305'
+output '010-5627-3305'
+
+function changePhoneNumber(input){
+  var regExp = '/\d{3}\d{4}\d{4}/g';
+  var output = regExp.replace(input, '$1-$2-$3');
+}
+
+이제 구글링하지 않아도 만들 수 있을거 같습니다
+다음엔 주민등록번호를 도전!
