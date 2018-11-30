@@ -1,0 +1,14 @@
+2018 11 30
+
+#Problem solving
+
+##주민등록번호 정규식 만들어보기
+
+input  '9311032123456'
+output '931103-2123456'
+
+ function changeRegnum(input){
+  var regExp = '^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))-[1-4][0-9]{6}$';
+  var output = regExp.replace(input, '$1-$2');
+}
+
