@@ -1,0 +1,47 @@
+2018 12 04
+
+#Script
+
+##Plugin dataTable
+
+스크립트로 테이블을 만들 때 사용할 수 있는 플러그인 dataTable을 사용해보니 유용하고 앞으로 자주 사용하기 위해 정리해보았습니다
+
+
+출처 https://datatables.net/reference/api/ajax.reload()
+
+
+jQuery('#테이블아이디').dataTable({
+            pageLength: false,         // 한페이지에 보여줄 갯수
+            bLengthChange: false,      // 페이지 항목수 변경여부
+            bPaginate: false,          // 페이징 처리 여부
+            ordering: false,           // 정렬 사용 여부
+            serverSide: false,         // 서버사이드 처리 여부 옵션
+            processing: false,
+            dom: '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"i><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"p>>>',
+            //dom은 테이블 스타일과 tr,td 스타일
+            autoWidth: false,
+            ajax: {
+                "url": "/api",
+                "type": "GET",
+                "contentType": "application/json; charset=utf8"
+            },
+            select: {
+                style: 'single'
+            },
+            columnDefs: [
+                {targets: [2, 3], visible: false}
+            ],
+            columns: [
+                {data: "desc"},
+                {data: "name"},
+                {data: "ip",
+                    render: function (data, type, full, meta) {
+                        return "<input id='add_modal_ip' type='text' value='" + data +"'/>"
+                }}
+            ]
+        });
+
+
+
+
+
