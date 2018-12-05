@@ -67,7 +67,34 @@ http, server, location와는 상속관계를 갖지 않는다.
 
 1
 sudo service nginx reload;
- 
+
+
+
+2018 12 5
+
+SSL Setting
+
+http://nginx.org/en/docs/http/ngx_http_ssl_module.html
+여기 적힌것처럼 build할때 --with-http_ssl_module 옵션이 필요하다
+
+ssl module은 default builtin이 아니기 때문이다
+때문에 nginx 삭제하고 옵션넣어 재설치하였다
+
+server {
+    server_name ~^([a-zA-Z0-9]+)_([a-zA-Z0-9]+)_([0-9]+)\.test\.org$;
+    resolver 127.0.0.1;
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_pass http://host_$3;
+    }
+ }
+이것처럼 reverse proxy를 사용하여 도메인을 받아와서 리다이렉트 되게 설정해주었다
+
+proxy_set_header X-Forwarded-Proto $scheme;
+페이지 이동 시 https 를 확인하고 유지 시켜주기 위해 이 설정도 넣어주었다
+
 
  
 출처 : https://opentutorials.org/module/384/4526
+     http://nginx.org/en/docs/http/ngx_http_ssl_module.html
