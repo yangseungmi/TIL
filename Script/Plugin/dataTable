@@ -29,7 +29,7 @@ jQuery('#테이블아이디').dataTable({
                 style: 'single'
             },
             columnDefs: [
-                {targets: [2, 3], visible: false}
+                {targets: [2, 3], visible: false}// columDefs 는 특정 컬럼 값 가져올 수 있다 2(3번째),3(4번째) 컬럼을 안보이게 
             ],
             columns: [
                 {data: "desc"},
