@@ -1,0 +1,14 @@
+2018 12 9
+
+#Problem Solving
+
+##이메일 주소
+
+input  '010562@daum.net'
+
+function changePhoneNumber(input){
+var regExp = '^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$';
+var output = input.test(ouput);
+}
+
+output 'true'
