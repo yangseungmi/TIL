@@ -1,0 +1,45 @@
+2018 12 17
+
+##Problem solving
+
+# 거리 짧은 것의 쌍 구하기
+
+문제 
+http://codingdojang.com/scode/408?answer_mode=hide
+1차원의 점들이 주어졌을 때, 그 중 가장 거리가 짧은 것의 쌍을 출력하는 함수를 작성하시오. (단 점들의 배열은 모두 정렬되어있다고 가정한다.)
+
+예를들어 S={1, 3, 4, 8, 13, 17, 20} 이 주어졌다면, 결과값은 (3, 4)가 될 것이다.
+
+
+문제           S = {1, 3, 4, 8, 13, 17, 20}
+
+출력           (3, 4)
+
+
+public static void main(String[] args) {
+
+    int[] S = {1, 3, 4, 8, 13, 17, 20}
+    
+    for(int i = 0; i< s.size(); i++){
+    
+    int min = 0;
+    int min1 = 0, min2 = 0;
+
+    min = S[6] - S[0];
+
+    for (int i = 0; i < 6; i++)
+    {
+        for (int j = 6; j > 0+i; j--)
+        {
+            if ((S[j] - S[i]) < min && (S[j] - S[i] > 0))
+            {
+                min = S[j] - S[i];  
+
+                min1 = S[i];
+                min2 = S[j];
+            }
+        }
+    }
+    printf("(%d , %d)", min1, min2);
+    
+}
