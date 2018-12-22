@@ -1,0 +1,64 @@
+2018 12 22
+
+#MSSQL
+
+##JOIN
+
+INNER
+
+INNER JOIN, LEFT OUTER JOIN(LEFT JOIN), RIGHT OUTER JOIN, FULL OUTER JOIN
+
+
+
+1) INNER JOIN
+한마디로 중복과 NULL이 없는 "교집합"이라고 생각하면 쉽다. 이걸 말로 쓰려고하니까 음...
+SELECT A.*, B.*
+FROM A
+INNER JOIN B ON A.ID = B.ID
+
+즉 A테이블과 B테이블에 전부 존재하는 데이터만 조회하라는 의미이다.(물론 ON조건에 만족하는 데이터) 
+집합으로 표현하면 교집합이다. 
+좀 설명하기가 애매하지만, 이런식으로 이해하면 될것 같다. 
+1번째로 LEFT JOIN을 한후, 2번째 RIGHT JOIN을 한다. 
+3번째 중복된 데이터를 제거한다. 
+4번째 전체 컬럼에 NULL이 있는 데이터는 제거한다. 
+
+2) LEFT OUTER JOIN(LEFT JOIN)
+SELECT A.*, B.*
+FROM A
+LEFT JOIN B ON A.ID = B.ID
+
+가	30	가	50 
+나	30	나	70 
+다	40	다	80 
+라	50	NULL	NULL 
+마	100	마	20 
+
+A테이블의 전체 데이터가 출력이 되구, ON조건인 A.지역명 = B.지역명인 데이터만 B테이블에서 조회해서 같은 
+A테이블에 맞는 로우에 데이터를 출력시켜 주는 조건이다. B에 없는 데이터는 NULL로 처리된다.
+
+3) RIGHT OUTER JOIN
+SELECT A.*, B.*
+FROM A
+RIGHT JOIN B ON A.ID = B.ID
+
+가	30	가	50 
+나	30	나	70 
+다	40	다	80 
+마	100	마	20 
+NULL	NULL	바	200 
+NULL	NULL	사	150 
+
+반대로 A에 없는 데이터가 NULL로 출력된다.
+
+4) FULL OUTER JOIN
+SELECT A.*, B.*
+FROM A
+FULL OUTER JOIN B ON A.ID = B.ID
+
+두 테이블의 합집합을 나타낸다. 
+조건에 맞는 데이터는 같은 로우에 표현해주고 다른 데이터는 다른 로우에 표현해주는 방법이다. 
+좀 설명하기가 애매하지만, 이런식으로 이해하면 될것 같다. 
+1번째로 LEFT JOIN을 한후, 2번째 RIGHT JOIN을 한다. 
+3번째 중복된 데이터를 제거한다. 
+
