@@ -1,0 +1,38 @@
+2018 12 23
+
+#Knowledge
+
+##Java3 Singleton Pattern
+
+싱글톤 패턴을 한마디로 요약하면 아래와 같습니다.
+
+"해당 클래스의 인스턴스가 하나만 만들어지고,
+어디서든지 그 인스턴스에 접근할  수 있도록 하기 위한 패턴"
+
+요즘 이러한 싱글톤 패턴을 스스로 만들어 적용할 일은 많지 않습니다.
+실무에서는 스프링프레임워크를 빼고 개발을 논할 수가 없습니다.
+스프링프레임워크는 객체의 라이프사이클을 관리합니다.
+라이프사이클을 관리하면서 객체를 디폴트로 싱글톤으로 유지시켜줍니다.
+
+```java
+public class Singleton {
+  
+  private static Singleton singleton;
+  
+  public static Singleton getInstance() {
+  
+    if( singleton == null) 
+    {
+      singleton = new Singleton();
+      return singleton;
+    }
+    else 
+    {
+      return singleton;
+    }
+}
+```
+
+
+출처: http://hjjungdev.tistory.com/4 [우아한 프로그래밍]
+참고: https://www.youtube.com/watch?v=5jgpu9-ywtY
