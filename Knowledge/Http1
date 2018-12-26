@@ -1,0 +1,42 @@
+2018 12 26
+
+#Knowledge
+
+##Http 동기/비동기 통신 을 알고 넘어 가려고 했는데 같이 공부한 blocking, non-blocking도 재밌어 정리해보았다
+
+(Synchronous(동기) Vs Asynchronous(비동기)과 ) Blocking & Non-Blocking
+
+Blocking & Non-Blocking는 프로그램의 실행하는 순서 관점에서 이해를 하면 좀 더 쉽게 이해할 수 있다.
+
+1) Blocking I/O Model 
+말 그대로 작업을 중단시킨다는 의미이며, 네트워크에서 요청이 완료될 때까지 다른 작업은 중단한 채 대기한다.
+
+Blocking I/O Model 에서는 System Call이 끝날때까지 프로그램은 대기해야 하고 System Call이 완료가 되면 그때야 Return 한다.
+Wait Queue에 들어간다.
+
+간단한 예로 C언어의 Scanf()를 생각한다면 프로그램은 사용자가 입력하기 전까지 
+대기한 상태로 Scanf는 Return하지 않는 모습을 알 수 있다.
+
+
+2) Non-Blocking 
+위 블로킹 개념과 반대되는 개념으로 네트워크에 다른 요청이 있어도, 기다리지 않고 다른 작업을 수행할 수 있다.
+
+Non-Blocking I/O Model 에서는 System Call이 완료되지 않아도 대기하지 않고 Return 해버린다.
+Wait Queue에 들어가지 않는다.
+
+정리해보면
+Non-Blocking Vs ASynchronous 차이점
+System Call이 즉시 Return될 때 데이터의 포함 유무이다
+- Asynchronous은 요청에 처리 완료와 관계없이 응답한다. 이후 운영체제에서 응답할 준비가 되면 응답한다.
+- Non-Blocking은 요청에 처리할 수 있으면 바로 응답하고 아니면 Error를 반환한다.
+
+Blocking Vs Synchronous 차이점
+Wait Queue 유무
+- Blocking은 System Call의 Return을 기다리는 동안 필수로 Wait Queue에 머문다.
+- Synchronous은 System Call의 Return을 기다리는 동안 Wait Queue에 머물 수도 아닐 수도 있다.
+
+
+참고 http://leechoong.com/posts/2017/nodejs_syncasync/
+출처 https://nesoy.github.io/articles/2017-01/Synchronized
+
+
