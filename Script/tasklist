@@ -1,0 +1,48 @@
+2018 12 27
+
+#Script
+
+##tasklist
+
+윈도우 서버 확인하다 공부하게 된 tasklist 스크립트에 대해 정리해보았습니다
+
+TASKLIST [/S 시스템 [/U 사용자 이름 [/P [암호]]]]
+[/M [모듈] | /SVC | /V] [/FI 필터] [/FO 형식] [/NH]
+
+설명:
+이 명령줄 도구는 현재 로컬 또는 원격 시스템에서 실행되고 있는 응용 프로그램 및 관련 작업/프로세스 목록을 표시합니다.
+
+매개 변수 목록:
+/S 시스템 연결할 원격 시스템을 지정합니다.
+/U [domain\]user 명령을 실행해야 하는 사용자 컨텍스트를 지정합니다.
+/P [암호] 해당 사용자 컨텍스트의 암호를 지정합니다. 생략한 경우에는 물어봅니다.
+/M [모듈] 해당 패턴 이름과 일치하며 DLL 모듈이 로드된 모든 작업을 나열합니다. 모듈 이름을 지정하지 않으면 각 작업에서 로드한 모든 모듈을 표시합니다.
+/SVC 각 프로세스에 있는 서비스를 표시합니다.
+/V 자세한 정보를 표시하도록 지정합니다.
+/FI 필터 필터에서 지정한 조건과 일치하는 작업 집합을 표시합니다.
+/FO 형식 출력 형식을 지정합니다. 사용할 수 있는 값: “TABLE”, “LIST”, “CSV”.
+
+예:
+TASKLIST
+TASKLIST /M
+TASKLIST /V
+TASKLIST /SVC
+TASKLIST /M wbem*
+TASKLIST /S 시스템 /FO LIST
+TASKLIST /S 시스템 /U domain\username /FO CSV /NH
+TASKLIST /S 시스템 /U 사용자 이름 /P 암호 /FO TABLE /NH
+TASKLIST /FI “USERNAME ne NT AUTHORITY\SYSTEM” /FI “STATUS eq running”
+
+------------------------------------------------------------------------------------------
+
+이 명령을 사용해서 현재 실행하고 있는 프로세스에 대한 정보를 가져올 수 있다. 
+Image Name이 프로세스 이름이고 PID가 프로세스 ID이다. 그리고 Mem Usage가 메모리 사용량이다.
+
+$ tasklist
+Image Name    PID    Session Name   Session    Mem Usage
+System          4        Services         0          --K
+
+
+
+
+
