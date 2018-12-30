@@ -52,5 +52,9 @@ class BasilPizzaFactory extends PizzaFactory{
     return new BasilPizza();
   }
 }
+팩토리 메소드 패턴의 장점은
+객체 생성을 한군데에서 관리할 수 있고
+동일한 인터페이스 구현으로 새로운 객체가 추가되더라고 다른 서브클래스들의 소스 수정이 없다
+제품을 생성하는 부분과 사용하는 부분을 
 
 출처: http://huiyu.tistory.com/entry/4-Factory-Method-Pattern팩토리-메소드-패턴 [huiyu]
