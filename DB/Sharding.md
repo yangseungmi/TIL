@@ -18,6 +18,7 @@ Vertical Partitioning
 - 그림그대로 수직으로 자르는데 도메인에 따라 쉽게 분리할 수 있다
 
 Sharding
+
 ![Alt text](/Image/5.png  "Sharding")
 - 수평으로 자른다.   같은 테이블 스키마를 가진 데이터를 다수의 데이터베이스에 분산하여 저장한다
 Horizontal Partitioning 이라고도 한단다
