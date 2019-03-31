@@ -1,14 +1,13 @@
 2019 3 31
 
-오늘도 간단한 leetcode 문제 풀기
-https://leetcode.com/problems/remove-element/
+#### 오늘도 간단한 leetcode 문제 풀기
+##### https://leetcode.com/problems/remove-element/
+
 ***
 Given nums = [3,2,2,3], val = 3,
 
 Your function should return length = 2, with the first two elements of nums being 2.
-
-It doesn't matter what you leave beyond the returned length.
-
+***
 처음에 무턱대고 생각나는대로 짰는데 내가 int[] 를 하나 더 선언해서 
 for문으로 그 안에 넣고 하려고 했었다.   후ㅜ
 그럴필요는 없지만 그렇게도 할 수 있을거 같았고
