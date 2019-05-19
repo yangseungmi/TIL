@@ -1,0 +1,102 @@
+2019 5 19
+
+
+오랜만에 기초를 정리해 보기 위해 '자바 메모리 관리'라고 구글링을 해보았다.
+
+정리가 잘 되어있는 깃헙 내용을 참고로 다 잊어버린 스택을 머릿 속에 다시 한번 넣었다
+
+https://yaboong.github.io/java/2018/05/26/java-memory-management/
+
+Stack
+Heap 영역에 생성된 Object 타입의 데이터의 참조값이 할당된다.
+원시타입의 데이터가 값과 함께 할당된다.
+지역변수들은 scope 에 따른 visibility 를 가진다.
+각 Thread 는 자신만의 stack 을 가진다.
+Stack 에는 heap 영역에 생성된 Object 타입의 데이터들에 대한 참조를 위한 값들이 할당된다. 또한, 원시타입(primitive types) - byte, short, int, long, double, float, boolean, char 타입의 데이터들이 할당된다. 이때 원시타입의 데이터들에 대해서는 참조값을 저장하는 것이 아니라 실제 값을 stack 에 직접 저장하게 된다.
+
+Stack 영역에 있는 변수들은 visibility 를 가진다. 변수 scope 에 대한 개념이다. 전역변수가 아닌 지역변수가 foo() 라는 함수내에서 Stack 에 할당 된 경우, 해당 지역변수는 다른 함수에서 접근할 수 없다. 예를들어, foo() 라는 함수에서 bar() 함수를 호출하고 bar() 함수의 종료되는 중괄호 } 가 실행된 경우 (함수가 종료된 경우), bar() 함수 내부에서 선언한 모든 지역변수들은 stack 에서 pop 되어 사라진다.
+
+Stack 메모리는 Thread 하나당 하나씩 할당된다. 즉, 스레드 하나가 새롭게 생성되는 순간 해당 스레드를 위한 stack 도 함께 생성되며, 각 스레드에서 다른 스레드의 stack 영역에는 접근할 수 없다.
+
+이제 Stack 이 어떻게 활용되는지 간단한 코드를 보면서 하나씩 살펴보자.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        int argument = 4;
+        argument = someOperation(argument);
+    }
+
+    private static int someOperation(int param){
+        int tmp = param * 3;
+        int result = tmp / 2;
+        return result;
+    }
+}
+```
+
+간단한 설명을 위해 args 배열은 무시한다. 아래에서 설명하게 될 Heap 의 동작과정을 알면 String[] args 는 어떻게 동작하는지도 알 수 있다.
+
+argument 에 4 라는 값을 최초로 할당했고, 이 argument 변수를 함수에 넘겨주고 결과값을 또다시 argument 에 할당하는 방식이 그렇게 좋은 방식은 아니지만 설명의 편의를 위해 그냥 두자.
+
+int argument = 4;
+에 의해 스택에 argument 라는 변수명으로 공간이 할당되고, argument 변수의 타입은 원시타입이므로 이 공간에는 실제 4 라는 값이 할당된다. 
+현재 스택의 상태는 아래와 같다.
+
+|            |
+|            |
+|            |
+| argument=4 |
+--------------
+    STACK
+    
+    
+    
+다음으로,
+
+argument = someOperation(argument);
+에 의해 someOperation() 함수가 호출된다. 호출될때 인자로 argument 변수를 넘겨주며 scope 가 someOperation() 함수로 이동한다. 
+scope 가 바뀌면서 기존의 argument 라는 값은 scope 에서 벗어나므로 사용할 수 없다. 이때 인자로 넘겨받은 값은 파라미터인 param 에 복사되어 전달되는데,
+param 또한 원시타입이므로 stack 에 할당된 공간에 값이 할당된다. 현재 스택의 상태는 아래와 같다. 
+
+
+|            |
+|            |
+|  param =4  |
+| argument=4 |
+--------------
+    STACK
+
+다음으로,
+
+int tmp = param * 3;
+int result = tmp / 2;
+에 의해 같은 방식으로 스택에 값이 할당되며 현재 스택의 상태는 아래와 같다.
+
+
+|            |
+|  result=6  |
+|   tmp=12   |
+|  param =4  |
+| argument=4 |
+--------------
+    STACK
+
+다음으로, 닫는괄호 } 가 실행되어 someOperation() 함수호출이 종료되면 호출함수 scope 에서 사용되었던 모든 지역변수들은 stack 에서 pop 된다. 
+함수가 종료되어 지역변수들이 모두 pop 되고, 함수를 호출했던 시점으로 돌아가면 스택의 상태는 아래와 같이 변한다.
+
+
+|            |
+|            |
+|            |
+| argument=6 |
+--------------
+    STACK
+    
+
+argument 변수는 4 로 초기화 되었지만, 함수의 실행결과인 6 이 기존 argument 변수에 재할당된다. 물론 함수호출에서 사용되었던 지역변수들이 모두 pop 되기 전에 재할당 작업이 일어날 것이다.
+
+그리고 main() 함수도 종료되는 순간 stack 에 있는 모든 데이터들은 pop 되면서 프로그램이 종료된다.
+
+
+내일은 HEAP 정리할 예정...
