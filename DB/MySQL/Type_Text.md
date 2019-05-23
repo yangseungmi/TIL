@@ -8,10 +8,13 @@ DB 설계 중 자료형을 'Text'로 잡았다가
 
 TEXT와 다른점도 많고 MEDIUMTEXT라는 자료형이 있어 바꿔서 해결했다
 
+|TYPE|SIZE|
+|----|----|
+|TEXT|65,535|
+|MEDIUMTEXT|16,777,215|
+|BLOB|65,535|
 
-|TYPE|TEXT|MEDIUMTEXT|BLOB|
-|----|----|----|----|
-|크기|65,535|16,777,215|65,535|
+-> TEXT와 BLOB은 크기가 같았다.
 
 
         TEXT는 문자셋(Character set),
