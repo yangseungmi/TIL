@@ -35,7 +35,28 @@ PolicyController.java로 넘어와서
         }
 
         //2. 파일이름과 파일을 kg-pub-api에 전송 -> restTemplate
+        
+        
+        //kg-pub-api source
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Date"                , date);
+        headers.add("Content-Type"        , content_type);
+        headers.add("Authorization"       , String.format("TWG %s:%s", acckey, authkey));
+        headers.add("X-Twg-Put-Option"    , xtwgPutValue);
+        
+        
+        //여기서 포인트는 content를 따로 Map에 넣지 않고 바로 Entity에 넣어서 전송한다는 것.
+        HttpEntity<?> httpEntity = new HttpEntity<Object>(content, headers);
 
+        try {
+            ResponseEntity<String> resEntity = restTemplate.exchange(tenthUploadUri,HttpMethod.PUT, httpEntity, String.class);
+
+            return resEntity.getStatusCode().toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(e);
+        }
 
 
         return null;
