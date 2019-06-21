@@ -46,3 +46,9 @@ do
 done
 
 ```
+
+
+배치 실행시키는 스크립트
+./upload_tenth (env에 따라) dev
+또는
+./upload_tenth (env에 따라) live
