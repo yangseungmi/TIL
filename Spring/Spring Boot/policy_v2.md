@@ -19,13 +19,14 @@ wirte_key=w_xxxx
 
 svc=gamepub
 tenth2_full_path=/gamepub/policy_dev
-full_path_to_upload=/daum/service/jenkins/.jenkins/soup/tenth
+full_path_to_path=생략
 
 echo
 echo "#-------------------------------------------------------------------------------"
 echo "# 1. SOUP 서버에서 약관 파일을 복사"
 echo "#-------------------------------------------------------------------------------"
-scp gm-user-admin1:/kakaogames/service/soup-admin/tenth/* /daum/service/jenkins/.jenkins/soup/tenth
+
+scp 서버 파일 경로 서버 (생략)
 
 echo
 echo "#-------------------------------------------------------------------------------"
