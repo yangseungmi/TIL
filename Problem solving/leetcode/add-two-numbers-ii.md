@@ -58,6 +58,7 @@ class Solution {
             dummy.next = new ListNode(sum/10);
         }
         //head에 pre를 옮긴다(?)
+        // 올림이 있어 자릿수가 하나더 생길 수 있어서 previous와 head로 나눔!!
         ListNode previous = null;
         ListNode head = pre.next;
         
