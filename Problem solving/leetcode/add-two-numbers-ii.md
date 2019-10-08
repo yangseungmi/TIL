@@ -61,7 +61,8 @@ class Solution {
         // 올림이 있어 자릿수가 하나더 생길 수 있어서 previous와 head로 나눔!!
         ListNode previous = null;
         ListNode head = pre.next;
-        
+        //올림을 했을 때 head 즉,pre.next가 있으면 previous에 옮기고 앞자리수를 하나 더 붙여주고
+        //없을 때 즉, null일 때 그냥 previous를 출력
         while(head!=null){
             ListNode curr = head.next;
             head.next = previous;
