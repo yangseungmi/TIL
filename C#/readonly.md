@@ -16,19 +16,18 @@
 ```            
 
 
-asp:TextBox 태그에 수정을 막기위해 readonly 옵션을 넣었는데
-aspx.cs 소스에서 this.TextBox2.Text 이렇게 텍스트를 가져올 때 ""로 가져와 데이터를 추출할 수 없다.
+#### asp:TextBox 태그에 수정을 막기위해 readonly 옵션을 넣었는데
+#### aspx.cs 소스에서 this.TextBox2.Text 이렇게 텍스트를 가져올 때 ""로 가져와 데이터를 추출할 수 없다.
 
 때문에
 
 ```aspx
-
-```
-        <asp:HiddenField ID="hfADDRESSSTREET" runat="server" /> 
+     <asp:HiddenField ID="hfADDRESSSTREET" runat="server" /> 
         
 ```
-이런식으로 HiddenField 태그에 데이터를 따로 담아 
- hfADDRESSSTREET.Value 이런식으로 가져와야 한다.
+
+#### 이런식으로 HiddenField 태그에 데이터를 따로 담아 
+####  hfADDRESSSTREET.Value 이런식으로 가져와야 한다.
 
 
 
