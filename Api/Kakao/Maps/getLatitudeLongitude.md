@@ -59,3 +59,10 @@ geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function
 result의 result[0].x와 result[0].y를 추출한다.
 
 
+result[0].x가 x축 위도 인줄 알았는데 경도였다..
+result[0].y가 x축 위도
+result[0].x가 y축 경도.
+
+
+
+
