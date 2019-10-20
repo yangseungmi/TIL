@@ -63,6 +63,5 @@ result[0].x가 x축 위도 인줄 알았는데 경도였다..
 result[0].y가 x축 위도
 result[0].x가 y축 경도.
 
-
-
-
+http://apis.map.kakao.com/web/documentation/#Coords_getX
+카카오 map api 제공 사이트에 있는 getX()가 x좌표라고 한다.
