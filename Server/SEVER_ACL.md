@@ -90,6 +90,8 @@ $ curl seungmi.com
 curl: (56) Recv failure: Connection was reset
 
 ```
+![Alt text](../Image/curl.JPG)
+
 
 ## 4. ping
 https://zetawiki.com/wiki/%EB%A6%AC%EB%88%85%EC%8A%A4_ping
