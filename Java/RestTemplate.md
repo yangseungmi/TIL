@@ -9,7 +9,7 @@ RestTemplate는 HttpAClient를 추상화(HttpEntity의 json, xml 등)해서 제�
 따라서 내부 통신(HTTP 커넥션)에 있어서는 Apache HttpComponents를 사용한다.
 만약 RestTemplate가 없었다면, 직접 json, xml 라이브러리를 사용해서 변환해야 했을 것이다.
 
-
+![Alt text](../resttempate.png)
 
 1. 어플리케이션이 RestTemplate를 생성하고,
   URI, HTTP 메소드 등의 헤더를 담아 요청한다.
