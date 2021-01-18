@@ -15,6 +15,8 @@ public class Quiz1026 {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         int num = Integer.parseInt(st.nextToken());
@@ -30,13 +32,16 @@ public class Quiz1026 {
             b[i] = Integer.parseInt(st.nextToken());
         }
 
-        br.close();
         Arrays.sort(a); //오름차순 정렬
         Arrays.sort(b); //오름차순 정렬
         int sum = 0;
         for (int i = 0; i < num; i++) {
             sum += a[i] * b[num - i - 1]; // 각 배열의 끝에서부터 곱한 값을 더해준다
         }
-        System.out.println(sum);
+        
+        bw.write(sum+"\n");
+        bw.flush();
+        bw.close();
+        br.close();
     }
 }
