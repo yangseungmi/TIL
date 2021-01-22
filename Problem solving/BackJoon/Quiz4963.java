@@ -33,6 +33,7 @@ public class Quiz4963 {
                 st = new StringTokenizer(br.readLine());
                 for (int j = 1; j <= w; j++) {
                     map[i][j] = Integer.parseInt(st.nextToken());
+                    isCheck[i][j] = false;
                 }
             }
 
@@ -41,7 +42,6 @@ public class Quiz4963 {
             for (int i = 1; i <= h; i++) {
                 for (int j = 1; j <= w; j++) {
                     if (map[i][j] == 1 && !isCheck[i][j]) {
-                        isCheck[i][j] = true;
                         getIsland(i, j);
                         num++;
                     }
@@ -49,28 +49,28 @@ public class Quiz4963 {
             }
             sb.append(num).append("\n");
         }
-        System.out.println(sb.toString());
+        System.out.print(sb.toString());
         br.close();
     }
 
-    static void getIsland(int w, int h) {
+    static void getIsland(int h, int w) {
 
         map[h][w] = 0;
         // 대상을 둘러싸는 인덱스
         // ex) 대상 [1,1] : 주위 [0,0] [0,1] [0,2] / [1,0] [1,2] / [2,0] [2,1] [2,2]
-        int[] search_w = {-1, -1, -1, 0, 0, 1, 1, 1};
-        int[] search_h = {-1, 0, 1, -1, 1, -1, -1, 1};
-
+        int[] search_h = {0, 1, 1, 1, 0, -1, -1, -1};
+        int[] search_w = {-1, -1, 0, 1, 1, 1, 0, -1};
+        
         for (int i = 0; i < search_h.length; i++) {
-            int around_x = w + search_w[i];
             int around_y = h + search_h[i];
+            int around_x = w + search_w[i];
 
             if (map[around_y][around_x] == 1) {
                 isCheck[around_y][around_x] = true;
-                getIsland(around_x, around_y);
+                getIsland(around_y, around_x);
             }
         }
     }
-
 }
+
 
