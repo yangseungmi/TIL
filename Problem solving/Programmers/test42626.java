@@ -5,9 +5,11 @@
 // 문제 https://programmers.co.kr/learn/courses/30/lessons/42626
 
 // Queue
-// add();
-// poll();
-// peek();
+// add(data);  offer()와 같은 기능으로 data 값을 queue에 추가하는 메소드.
+// poll(); 제일 앞에 있는 값을 꺼내서 출력. 값이 없으면 null 출력.
+// peek(); poll과 같이 제일 앞에 있는 값을 출력해주지만 꺼내지는 않음.
+// remove(); queue의 첫번째 항목을 제거
+// isEmpty(); queue 값이 비어있으면 true를 반환.
 
 package com.company.programmers;
 
