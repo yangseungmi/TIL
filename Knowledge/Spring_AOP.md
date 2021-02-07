@@ -4,6 +4,7 @@
 
 ##### 스프링 AOP를 대학교때부터 배우고 회사다닐때도 어노테이션으로 종종보고 이번에 면접준비하면서도 찾아보는데
 ##### 오늘에서야 정확히 설명할 수 있을만큼 공부했다.
+Spring AOP(Aspect Oriented Programming) 관점 지향 프로그래밍
 
 ```java
 @Component
