@@ -28,8 +28,5 @@ public class Main {
             System.out.println(arr[i][0] +" "+ arr[i][1]);
         }
         
-        /*
-        
-        */
     }
 }
