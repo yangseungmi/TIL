@@ -1,6 +1,7 @@
 // 2021 2 22
 
 /*
+https://www.acmicpc.net/problem/2156
 백준 포도주 시식 문제 재귀로 풀었다.
 */
 
@@ -16,8 +17,8 @@ public class Quiz2156 {
         Scanner sc = new Scanner(System.in);
 
         n = sc.nextInt();
-        dp = new int[n + 1];
-        cost = new int[n + 1];
+        dp = new int[n + 1]; // 먹은거 합산값
+        cost = new int[n + 1]; // 포도주 배열
 
 
         for (int i = 1; i <= n; i++) { // 비용 입력
@@ -31,7 +32,16 @@ public class Quiz2156 {
         
         for(int i=3;i<=n;i++) {
             // 경우의 수 중 최댓값을 취한다.
-            dp[i] = Math.max(Math.max(cost[i-1]+dp[i-3]+ cost[i], dp[i-2]+ cost[i]),dp[i-1]) ;
+            dp[i] = Math.max(
+                Math.max(
+                // i가 3인 경우
+                    // cost[2] + dp[0] + cost[3]
+                    cost[i-1]+dp[i-3]+ cost[i],
+                    // dp[1] + cost[3]
+                    dp[i-2]+ cost[i]
+                )
+                // dp[2]
+                ,dp[i-1]) ;
         }
 
         System.out.println(dp[n]);
