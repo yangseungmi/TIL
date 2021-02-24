@@ -35,12 +35,18 @@ public class Quiz2156 {
             dp[i] = Math.max(
                 Math.max(
                 // i가 3인 경우
-                    // cost[2] + dp[0] + cost[3]
+                    // cost[2] + dp[0] + cost[3]    
+                    
+                // i가 4인 경우
+                    // cost[3] + dp[1] + cost[4]
                     cost[i-1]+dp[i-3]+ cost[i],
+                    
                     // dp[1] + cost[3]
+                    // dp[2] + cost[4]
                     dp[i-2]+ cost[i]
                 )
                 // dp[2]
+                // dp[3]
                 ,dp[i-1]) ;
         }
 
