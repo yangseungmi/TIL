@@ -30,3 +30,4 @@ select * from kmong.exam_result;
 
 ```
 ![select_union](/Image/select_union.png)
+![select_union](/Image/select_union2.png)
