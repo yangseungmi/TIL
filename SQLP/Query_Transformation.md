@@ -8,6 +8,9 @@ Query Transformation
 2. 뷰 Merging
 
 3. 조건절 Pushing
+- 조건절 Pushdown
+- 조건절 Pullup
+- 조인조건 Pushdown
 
 4. 조건절 이행
 
@@ -16,6 +19,7 @@ Query Transformation
 6. Outer 조인을 Inner 조인으로 변환
 
 7. 실체화 뷰 쿼리로 재작성
+실체화 뷰 - Materialized View
 
 8. Start 변환
 
