@@ -4,9 +4,13 @@ Query Transformation
 쿼리 변환
 
 1. 서브쿼리 Unnesting
-
+```sql
+select /* +unnest */ deptno from dept
+```
 2. 뷰 Merging
-
+```sql
+select /*+NO_MERGE*/ * from emp
+```
 3. 조건절 Pushing
 - 조건절 Pushdown
 - 조건절 Pullup
