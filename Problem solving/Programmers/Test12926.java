@@ -1,13 +1,18 @@
 //  2021 3 22
 
+/*
+Input AaZz
+A +25 -> Z
+z +25 -> a
+
+Output ZzYy
+*/
 
 package com.company.programmers;
 
 public class Test12926 {
     public static void main(String[] args) {
-        //System.out.println((int) 'z');
         System.out.println(solution("AaZz", 25));
-        // AaZz + 25 ->ZzYy
     }
 
     public static String solution(String s, int n) {
