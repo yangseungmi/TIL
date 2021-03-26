@@ -17,7 +17,8 @@ public class Solution {
       numsSet.add(num);
     }
 
-    // 중복을 제거한 셋의 크기가 max보다 크면 max를, 작으면 numsSet의 size를 리턴
+    // 중복을 제거한 셋의 크기가 max보다 크면 max를, 
+    // 작으면 numsSet의 size를 리턴
     if (numsSet.size() > max) {
       return max;
     } else {
