@@ -20,12 +20,11 @@ class Solution {
                 if(index % 2 != 0) {
                     // 홀수는 소문자
                     sb.append(Character.toLowerCase(s.charAt(i)));
-                    index ++;
                 } else {
                     // 짝수는 대문자
                     sb.append(Character.toUpperCase(s.charAt(i)));
-                    index ++;
                 }
+                index ++;
             }
         }
 
