@@ -16,7 +16,7 @@ Today I Learned
 <p>
 2021.01.18-</br>
 중니어 개발자 잔디모임 TIL 시즌 6 100일 커밋 진행중</br>
-<a href="https://garden6.junho85.pe.kr/attendance/">잔디모임 시즌 6 출석부</a>
+<a href="http://garden6.junho85.pe.kr/attendance/" target="_blank">잔디모임 시즌 6 출석부</a>
 </p>
 
 ### Problem solving
