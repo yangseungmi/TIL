@@ -26,12 +26,12 @@ AA
 
 
 ### Example
-(1) 1~10행의 모든 Hello를 Bye로 변경
-:1,10s/Hello/Bye/g
-(2) 문서 전체의 모든 Hello를 Bye로 변경
-:%s/Hello/Bye/g
-(3) 현재 행에서 마지막 행 까지의 모든 Hello를 Bye로 변경
-:.,$s/Hello/Bye/g
+#### (1) 1~10행의 모든 Hello를 Bye로 변경
+- :1,10s/Hello/Bye/g
+#### (2) 문서 전체의 모든 Hello를 Bye로 변경
+- :%s/Hello/Bye/g
+#### (3) 현재 행에서 마지막 행 까지의 모든 Hello를 Bye로 변경
+- :.,$s/Hello/Bye/g
 
 </br>
 참고 https://harryp.tistory.com/736</br>
