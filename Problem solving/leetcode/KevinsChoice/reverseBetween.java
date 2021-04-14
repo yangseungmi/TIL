@@ -8,7 +8,8 @@ https://leetcode.com/problems/reverse-linked-list-ii/
 
 알거같은데 자꾸 정신이 딴데로 샌다...
 
-ListNode val, next, 
+ListNode val, next
+참고 https://im-developer.tistory.com/132
 
 */
 
@@ -22,6 +23,7 @@ ListNode val, next,
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
 class Solution {
    public static ListNode reverseBetween(ListNode head, int left, int right) {
 
