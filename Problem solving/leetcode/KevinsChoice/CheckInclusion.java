@@ -1,6 +1,6 @@
 /*
 567. Permutation in String
-https://leetcode.com/problems/task-scheduler/
+https://leetcode.com/problems/permutation-in-string/
 
 이 Medium 문제를 내가 혼자 풀다니!!!
 내가 발전하는게 눈에 보이는것 같아 완전 뿌듯하다 :)
