@@ -2,42 +2,38 @@
 Test12981 영어끝말잇기
 https://programmers.co.kr/learn/courses/30/lessons/12981
 
-
+튜닝해서 다시 채점해 보았다,
 */
+import java.util.*;
 
-package com.company.programmers;
+class Solution {
+    public int[] solution(int n, String[] words) {
+         int[] answer = new int[2];
 
-import java.util.HashSet;
-
-public class Test12981 {
-    public static void main(String[] args) {
-        String[] s = {"tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"};
-        int[] ret = solution(3, s);
-        System.out.println(ret[0]);
-        System.out.println(ret[1]);
-    }
-
-    public static int[] solution(int n, String[] words) {
-        int[] answer = new int[2];
+        char wordStart;
+        char wordEnd = words[0].charAt(words[0].length()-1);
 
         HashSet<String> set = new HashSet<>();
-        int i = 0;
+        set.add(words[0]);
+
+        int i = 1;
         // n : 3
         // words : "tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"
         while (i < words.length) {
-            if (set.contains(words[i])
-                    || words[i].charAt(words[i].length() - 1) != words[i + 1].charAt(0)) {
+            set.add(words[i]);
+
+            wordStart = words[i].charAt(0);
+
+            if(wordEnd!=wordStart || set.size() != i+1) {
                 // 진 사람
-                answer[0] = i % n != 0 ? i % 3 : 3;
+                answer[0] = (i % n) +1;
                 // 진 사람이 몇번째인지
-                answer[1] = i / n;
+                answer[1] = (i / n) +1;
                 break;
-            } else {
-                set.add(words[i]);
-            }
+            } 
+            wordEnd = words[i].charAt(words[i].length()-1);
             i++;
         }
 
         return answer;
     }
-}
