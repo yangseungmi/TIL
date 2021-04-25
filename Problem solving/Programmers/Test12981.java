@@ -28,6 +28,7 @@ class Solution {
                 // 진 사람
                 answer[0] = (i % n) +1;
                 // 진 사람이 몇번째인지
+                // 만약 3번째 사람이 4번만에 졌으면 i는 9~11?
                 answer[1] = (i / n) +1;
                 break;
             } 
